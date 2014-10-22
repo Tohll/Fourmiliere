@@ -1,32 +1,54 @@
 ﻿------Nouveau cycle------
-La fourmie (Ouvriere 1) prend de la nourriture dans le Site n°3.
-La fourmie (Ouvriere 2) avance vers le Site n°4.
-La fourmie (Ouvriere 3) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 26) avance vers le Site n°3.
+La fourmie (Ouvriere 27) est retournee a la fourmiliere avec 2 unites de nourriture.
+La fourmie (Ouvriere 28) est retournee a la fourmiliere avec 2 unites de nourriture.
+La fourmie (Ouvriere 29) est retournee a la fourmiliere avec 2 unites de nourriture.
+La fourmie (Ouvriere 30) est retournee a la fourmiliere avec 2 unites de nourriture.
+La fourmie (Guerriere 16) patrouille le Site n°2.
+La fourmie (Guerriere 17) patrouille le Site n°5.
+La fourmie (Guerriere 18) retourne a la fourmiliere.
+La fourmie (Ouvriere 31) avance vers le Site n°5.
+La fourmie (Ouvriere 32) prend de la nourriture dans le Site n°3.
+La fourmie (Ouvriere 33) est retournee a la fourmiliere avec 2 unites de nourriture.
+La fourmie (Ouvriere 34) avance vers le Site n°4.
+La fourmie (Ouvriere 35) avance vers le Site n°5.
+La fourmie (Guerriere 19) patrouille la fourmiliere.
+La fourmie (Guerriere 20) retourne a la fourmiliere.
+La fourmie (Guerriere 21) patrouille le Site n°5.
 ------Fin du cycle------
+***Messages***
+Stock de la fourmiliere: 4 unites de nourriture.
+***Fin des messages***
+------Nouveau cycle------
+La fourmie (Guerriere 16) retourne a la fourmiliere.
+La fourmie (Guerriere 17) retourne a la fourmiliere.
+La fourmie (Guerriere 18) retourne a la fourmiliere.
+La fourmie (Ouvriere 31) avance vers le Site n°5.
+La fourmie (Ouvriere 32) retourne a la fourmiliere.
+La fourmie (Ouvriere 33) avance vers le Site n°1.
+La fourmie (Ouvriere 34) prend de la nourriture dans le Site n°4.
+La fourmie (Ouvriere 35) avance vers le Site n°5.
+La fourmie (Guerriere 19) avance vers le Site n°1.
+La fourmie (Guerriere 20) retourne a la fourmiliere.
+La fourmie (Guerriere 21) retourne a la fourmiliere.
+------Fin du cycle------
+***Messages***
+Stock de la fourmiliere: 3 unites de nourriture.
+***Fin des messages***
 ------Nouveau cycle------
 La Reine donne naissance a de nouvelles fourmies
-La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
-La fourmie (Ouvriere 2) prend de la nourriture dans le Site n°4.
-La fourmie (Ouvriere 3) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Guerriere 16) patrouille la fourmiliere.
+La fourmie (Guerriere 17) retourne a la fourmiliere.
+La fourmie (Guerriere 18) patrouille la fourmiliere.
+La fourmie (Ouvriere 31) prend de la nourriture dans le Site n°5.
+La fourmie (Ouvriere 32) retourne a la fourmiliere.
+La fourmie (Ouvriere 33) prend de la nourriture dans le Site n°1.
+La fourmie (Ouvriere 34) retourne a la fourmiliere.
+La fourmie (Ouvriere 35) prend de la nourriture dans le Site n°5.
+La fourmie (Guerriere 19) patrouille le Site n°1.
+La fourmie (Guerriere 20) patrouille la fourmiliere.
+La fourmie (Guerriere 21) retourne a la fourmiliere.
 ------Fin du cycle------
-------Nouveau cycle------
-La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
-La fourmie (Ouvriere 2) retourne a la fourmiliere avec 3 unites de nourriture.
-La fourmie (Ouvriere 3) est retournee a la fourmiliere avec 3 unites de nourriture.
-Stock de la fourmiliere: 13 unites de nourriture.
-La fourmie (Ouvriere 4) avance vers le Site n°3.
-La fourmie (Ouvriere 5) avance vers le Site n°3.
-La fourmie (Ouvriere 6) avance vers le Site n°5.
-La fourmie (Ouvriere 7) avance vers le Site n°3.
-La fourmie (Ouvriere 8) avance vers le Site n°2.
-------Fin du cycle------
-------Nouveau cycle------
-La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
-La fourmie (Ouvriere 2) retourne a la fourmiliere avec 3 unites de nourriture.
-La fourmie (Ouvriere 3) avance vers le Site n°1.
-La fourmie (Ouvriere 4) avance vers le Site n°3.
-La fourmie (Ouvriere 5) avance vers le Site n°3.
-La fourmie (Ouvriere 6) avance vers le Site n°5.
-La fourmie (Ouvriere 7) avance vers le Site n°3.
-La fourmie (Ouvriere 8) avance vers le Site n°2.
-------Fin du cycle------
+***Messages***
+Stock de la fourmiliere: 0 unites de nourriture.
+***Fin des messages***
