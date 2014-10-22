@@ -42,6 +42,6 @@ public class Fourmiliere {
 		this.terrain = null;
 		this.population = new ArrayList<>();
 		population.add(new Reine());
-		this.stockNourriture = 10;
+		this.stockNourriture = 0;
 	}
 }

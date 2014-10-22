@@ -18,8 +18,19 @@ public class Main {
 		
 		f.setTerrain(new Terrain());
 		
-		for (i=0 ; i<3 ; i++) {
+		for (i=0 ; i<5 ; i++) {
+			
 			f.getPopulation().add(new Ouvriere());
+		}
+		
+		for (i=0 ; i<3 ; i++) {
+			
+			f.getPopulation().add(new Guerriere());
+		}
+		
+		for (i=0 ; i<2 ; i++) {
+			
+			f.getPopulation().add(new Soigneur());
 		}
 		
 		for (i=0 ; i<200 ; i++) {
@@ -30,13 +41,17 @@ public class Main {
 				f.getPopulation().get(i).Comportement(f);
 			}
 			System.out.println("------Fin du cycle------");
-			System.out.println("Appuyer sur entrer pour lancer un nouveau cycle...");
+			System.out.println("***Messages***");
+			System.out.println("Stock de la fourmiliere: " + f.getStockNourriture() + " unites de nourriture.");
+			System.out.println("***Fin des messages***");
+			
+			/*System.out.println("Appuyer sur entrer pour lancer un nouveau cycle...");
 			try {
 				System.in.read();
 			} catch (IOException e) {
 				
 				System.out.println("Probleme d'entrée/sortie");
-			} 
+			}*/
 		}
 		
 		/*Fourmiliere f = new Fourmiliere();

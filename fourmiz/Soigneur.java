@@ -10,7 +10,7 @@ public final class Soigneur extends FourmieAbstract {
 
 	public Soigneur() {
 		
-		super("Soigneur " + nbrSoigneur , 100 , 2);
+		super("Soigneur " + nbrSoigneur , 15 , 2);
 		nbrSoigneur++;
 	}
 	

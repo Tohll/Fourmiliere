@@ -58,5 +58,15 @@ public final class Reine extends FourmieAbstract {
 			System.out.println("La "+ this.getType() + " donne naissance a de nouvelles fourmies");
 			
 		}
+		
+		if (f.getStockNourriture() > 0) {
+			
+			f.setStockNourriture(f.getStockNourriture() - 1);
+			
+		} else {
+			
+			//this.setPointsDeVie(this.getPointsDeVie() - 2);
+			
+		}
 	}	
 }

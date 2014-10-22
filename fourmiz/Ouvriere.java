@@ -22,7 +22,7 @@ public final class Ouvriere extends FourmieAbstract {
 
 	public Ouvriere() {
 		
-		super("Ouvriere " + nbrOuvriere , 50 , 1);
+		super("Ouvriere " + nbrOuvriere , 10 , 1);
 		this.nourritureTransportee = 0;
 		nbrOuvriere++;		
 	}
@@ -54,7 +54,7 @@ public final class Ouvriere extends FourmieAbstract {
 					
 				} else {
 					
-					this.setNourritureTransportee(3);
+					this.setNourritureTransportee(2);
 					f.getTerrain().getTerrain()[this.getChoix()].setStockNourriture(f.getTerrain().getTerrain()[this.getChoix()].getStockNourriture() - 3);				
 					
 					this.setPosition(f.getTerrain().getTerrain()[this.getChoix()].getDistance());
@@ -70,7 +70,7 @@ public final class Ouvriere extends FourmieAbstract {
 					this.setPosition(this.getPosition() - this.getVitesse());
 					this.setPointsDeVie(this.getPointsDeVie() - 1);
 					
-					System.out.println("La fourmie (" + this.getType() + ") retourne a la fourmiliere avec " + this.getNourritureTransportee() + " unites de nourriture.");
+					System.out.println("La fourmie (" + this.getType() + ") retourne a la fourmiliere.");
 					
 				} else {
 					
@@ -80,12 +80,21 @@ public final class Ouvriere extends FourmieAbstract {
 					System.out.println("La fourmie (" + this.getType() + ") est retournee a la fourmiliere avec " + this.getNourritureTransportee() + " unites de nourriture.");
 					
 					f.setStockNourriture(f.getStockNourriture() + this.getNourritureTransportee());
-					this.setNourritureTransportee(0);
+					this.setNourritureTransportee(0);					
 					
-					System.out.println("Stock de la fourmiliere: " + f.getStockNourriture() + " unites de nourriture.");
-					
-				}
-			} if (this.getPointsDeVie() <= 0) {
+					if (f.getStockNourriture() > 0) {
+						
+						f.setStockNourriture(f.getStockNourriture() - 1);
+						
+					} else {
+						
+						this.setPointsDeVie(this.getPointsDeVie() - 2);
+						
+					}					
+				}				
+			}
+			
+			if (this.getPointsDeVie() <= 0) {
 				
 				this.setEstActive(false);
 			}
