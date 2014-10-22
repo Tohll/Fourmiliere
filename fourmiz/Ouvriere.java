@@ -3,7 +3,11 @@ package fourmiz;
 import java.util.Random;
 
 import mecaniques.Fourmiliere;
-
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public final class Ouvriere extends FourmieAbstract {	
 	
 	private int nourritureTransportee;

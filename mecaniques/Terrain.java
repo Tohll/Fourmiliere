@@ -1,7 +1,11 @@
 package mecaniques;
 
 import java.util.ArrayList;
-
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public class Terrain {
 
 	private SiteNourriture[] terrain;

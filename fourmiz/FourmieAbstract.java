@@ -2,6 +2,11 @@ package fourmiz;
 
 import mecaniques.Fourmiliere;
 
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public abstract class FourmieAbstract {	
 	
 	private boolean estActive;

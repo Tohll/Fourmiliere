@@ -1,5 +1,9 @@
 package mecaniques;
-
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public class SiteNourriture {
 	
 	private int distance;

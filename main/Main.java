@@ -4,7 +4,11 @@ import java.io.IOException;
 
 import fourmiz.*;
 import mecaniques.*;
-
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {		

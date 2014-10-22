@@ -2,7 +2,11 @@ package mecaniques;
 
 import java.util.ArrayList;
 import fourmiz.*;
-
+/**
+ * @author Charbel FOUREL
+ * @version 0.1
+ *
+ */
 public class Fourmiliere {
 	
 	private Terrain terrain;
