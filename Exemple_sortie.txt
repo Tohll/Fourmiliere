@@ -1,0 +1,32 @@
+﻿------Nouveau cycle------
+La fourmie (Ouvriere 1) prend de la nourriture dans le Site n°3.
+La fourmie (Ouvriere 2) avance vers le Site n°4.
+La fourmie (Ouvriere 3) retourne a la fourmiliere avec 3 unites de nourriture.
+------Fin du cycle------
+------Nouveau cycle------
+La Reine donne naissance a de nouvelles fourmies
+La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 2) prend de la nourriture dans le Site n°4.
+La fourmie (Ouvriere 3) retourne a la fourmiliere avec 3 unites de nourriture.
+------Fin du cycle------
+------Nouveau cycle------
+La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 2) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 3) est retournee a la fourmiliere avec 3 unites de nourriture.
+Stock de la fourmiliere: 13 unites de nourriture.
+La fourmie (Ouvriere 4) avance vers le Site n°3.
+La fourmie (Ouvriere 5) avance vers le Site n°3.
+La fourmie (Ouvriere 6) avance vers le Site n°5.
+La fourmie (Ouvriere 7) avance vers le Site n°3.
+La fourmie (Ouvriere 8) avance vers le Site n°2.
+------Fin du cycle------
+------Nouveau cycle------
+La fourmie (Ouvriere 1) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 2) retourne a la fourmiliere avec 3 unites de nourriture.
+La fourmie (Ouvriere 3) avance vers le Site n°1.
+La fourmie (Ouvriere 4) avance vers le Site n°3.
+La fourmie (Ouvriere 5) avance vers le Site n°3.
+La fourmie (Ouvriere 6) avance vers le Site n°5.
+La fourmie (Ouvriere 7) avance vers le Site n°3.
+La fourmie (Ouvriere 8) avance vers le Site n°2.
+------Fin du cycle------
