@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import fourmiz.*;
 import mecaniques.*;
+import messages.BoiteMessagesSingleton;
+
 /**
  * @author Charbel FOUREL
  * @version 0.1
@@ -42,7 +44,13 @@ public class Main {
 			}
 			System.out.println("------Fin du cycle------");
 			System.out.println("***Messages***");
-			System.out.println("Stock de la fourmiliere: " + f.getStockNourriture() + " unites de nourriture.");
+			
+			for (int j=0 ; j < BoiteMessagesSingleton.getInstance().getMessagesArrayList().size() ; i++) {
+				System.out.println(BoiteMessagesSingleton.getInstance().getMessagesArrayList().get(j));
+			}
+			
+			BoiteMessagesSingleton.getInstance().getMessagesArrayList().clear();
+			
 			System.out.println("***Fin des messages***");
 			
 			/*System.out.println("Appuyer sur entrer pour lancer un nouveau cycle...");
