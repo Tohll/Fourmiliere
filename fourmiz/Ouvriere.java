@@ -3,6 +3,8 @@ package fourmiz;
 import java.util.Random;
 
 import mecaniques.Fourmiliere;
+import messages.BoiteMessagesSingleton;
+import messages.MessageDepotNourriture;
 /**
  * @author Charbel FOUREL
  * @version 0.1
@@ -32,7 +34,7 @@ public final class Ouvriere extends FourmieAbstract {
 		
 		if (this.isEstActive()) {
 			
-			if (this.nourritureTransportee == 0) {
+			if (this.isAller()) {
 				
 				if (this.getPosition() == 0) {
 					
@@ -54,6 +56,7 @@ public final class Ouvriere extends FourmieAbstract {
 					
 				} else {
 					
+					this.setAller(false);
 					this.setNourritureTransportee(2);
 					f.getTerrain().getTerrain()[this.getChoix()].setStockNourriture(f.getTerrain().getTerrain()[this.getChoix()].getStockNourriture() - 3);				
 					
@@ -74,12 +77,14 @@ public final class Ouvriere extends FourmieAbstract {
 					
 				} else {
 					
+					this.setAller(true);
 					this.setPosition(0);
 					this.setPointsDeVie(this.getPointsDeVie() - 1);
 					
 					System.out.println("La fourmie (" + this.getType() + ") est retournee a la fourmiliere avec " + this.getNourritureTransportee() + " unites de nourriture.");
 					
-					f.setStockNourriture(f.getStockNourriture() + this.getNourritureTransportee());
+					BoiteMessagesSingleton.getInstance().getMessagesArrayList().add(new MessageDepotNourriture(this,this.getNourritureTransportee()));
+					
 					this.setNourritureTransportee(0);					
 					
 					if (f.getStockNourriture() > 0) {

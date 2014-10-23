@@ -5,6 +5,7 @@ import java.io.IOException;
 import fourmiz.*;
 import mecaniques.*;
 import messages.BoiteMessagesSingleton;
+import messages.MessageAbstract;
 
 /**
  * @author Charbel FOUREL
@@ -35,7 +36,7 @@ public class Main {
 			f.getPopulation().add(new Soigneur());
 		}
 		
-		for (i=0 ; i<200 ; i++) {
+		for (i=0 ; i<50 ; i++) {
 			
 			System.out.println("------Nouveau cycle------");
 			for (i=0 ; i<f.getPopulation().size() ; i++) {
@@ -43,15 +44,20 @@ public class Main {
 				f.getPopulation().get(i).Comportement(f);
 			}
 			System.out.println("------Fin du cycle------");
-			System.out.println("***Messages***");
-			
-			for (int j=0 ; j < BoiteMessagesSingleton.getInstance().getMessagesArrayList().size() ; i++) {
-				System.out.println(BoiteMessagesSingleton.getInstance().getMessagesArrayList().get(j));
+			System.out.println("***Messages***");			
+						
+			for (int j=0 ; j < BoiteMessagesSingleton.getInstance().getMessagesArrayList().size() ; j++) {
+				MessageAbstract m = BoiteMessagesSingleton.getInstance().getMessagesArrayList().get(j);
+				System.out.println(m.getMessage());
+				m.action(f);
 			}
 			
 			BoiteMessagesSingleton.getInstance().getMessagesArrayList().clear();
 			
+			System.out.println("stock nourriture: " + f.getStockNourriture());
+			
 			System.out.println("***Fin des messages***");
+			System.out.println();
 			
 			/*System.out.println("Appuyer sur entrer pour lancer un nouveau cycle...");
 			try {

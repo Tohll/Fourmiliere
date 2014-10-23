@@ -10,12 +10,11 @@ import mecaniques.Fourmiliere;
  */
 public final class Guerriere extends FourmieAbstract {
 
-	private boolean aller;
+	
 	
 	public Guerriere() {
 		
 		super("Guerriere " + nbrGuerriere , 15 , 2);
-		this.aller = true;
 		nbrGuerriere++;		
 	}
 
@@ -24,7 +23,7 @@ public final class Guerriere extends FourmieAbstract {
 		
 		if (this.isEstActive()) {
 			
-			if (this.aller) {
+			if (this.isAller()) {
 				
 				if (this.getPosition() == 0) {
 					
@@ -48,7 +47,7 @@ public final class Guerriere extends FourmieAbstract {
 					
 					this.setPosition(f.getTerrain().getTerrain()[this.getChoix()].getDistance());
 					this.setPointsDeVie(this.getPointsDeVie() - 1);
-					this.aller = false;
+					this.setAller(false);
 					
 					System.out.println("La fourmie (" + this.getType() + ") patrouille le " + f.getTerrain().getTerrain()[this.getChoix()].getNom() + ".");
 				}
@@ -66,7 +65,7 @@ public final class Guerriere extends FourmieAbstract {
 					
 					this.setPosition(0);
 					this.setPointsDeVie(this.getPointsDeVie() - 1);
-					this.aller = true;
+					this.setAller(true);
 					
 					System.out.println("La fourmie (" + this.getType() + ") patrouille la fourmiliere.");									
 					

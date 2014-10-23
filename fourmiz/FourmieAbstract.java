@@ -15,11 +15,20 @@ public abstract class FourmieAbstract {
 	private int pointsDeVie;
 	private int vitesse;
 	private int choix;
+	private boolean aller;
 	
 	protected static int nbrOuvriere = 1;
 	protected static int nbrGuerriere = 1;
-	protected static int nbrSoigneur = 1;
-		
+	protected static int nbrSoigneur = 1;	
+	
+	boolean isAller() {
+		return aller;
+	}
+
+	void setAller(boolean aller) {
+		this.aller = aller;
+	}
+
 	public boolean isEstActive() {
 		return estActive;
 	}
@@ -76,6 +85,7 @@ public abstract class FourmieAbstract {
 		this.type = type;
 		this.position = 0;
 		this.vitesse = vitesse;
+		this.aller = true;
 	}
 	
 	public abstract void Comportement(Fourmiliere f);
