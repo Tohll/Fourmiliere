@@ -33,11 +33,30 @@ public class Fourmiliere {
 	private Hashtable<Integer, FourmieAbstract> population;
 	private Hashtable<Integer, Predateur> listePred;
 	
+	private int[] UIx = {-1,165,215,215,-1};
+	private int[] UIy = {385,385,435,550,550};
+	
 	/*private int[] tabX = {400,425,450};
 	private int[] tabY = {325,300,325};*/
 	
 	public Hashtable<Integer, Predateur> getListePred() {
 		return listePred;
+	}
+
+	public int[] getUIx() {
+		return UIx;
+	}
+
+	public void setUIx(int[] uIx) {
+		UIx = uIx;
+	}
+
+	public int[] getUIy() {
+		return UIy;
+	}
+
+	public void setUIy(int[] uIy) {
+		UIy = uIy;
 	}
 
 	public JLabel getAffOuv() {
@@ -182,9 +201,9 @@ public class Fourmiliere {
 		this.affPopTotale = new JLabel("Population:" + this.getPopulation().size());
 		
 		this.etat = new JLabel("Patrouilles...");
-		this.affOuv = new JLabel("Ouvriere(s):");
-		this.affGue = new JLabel("Guerriere(s):");
-		this.affSoin = new JLabel("Soigneur(s):");
+		this.affOuv = new JLabel("-Ouvriere(s):");
+		this.affGue = new JLabel("-Guerriere(s):");
+		this.affSoin = new JLabel("-Soigneur(s):");
 		
 		simu.setLayout(null);
 		simu.add(this.getNom());
@@ -196,18 +215,37 @@ public class Fourmiliere {
 		simu.add(this.getAffGue());
 		simu.add(this.getAffSoin());
 		
-		this.getNom().setFont(new Font(this.getNom().getFont().getName() , Font.PLAIN , 16));
+		this.getNom().setForeground(Color.lightGray);
+		this.getNom().setFont(new Font(this.getNom().getFont().getName() , Font.BOLD , 16));
 		Dimension size = this.getNom().getPreferredSize();		
 		this.getNom().setBounds(25 , 434 , size.width , size.height);		
 		
-		this.getAffPopTotale().setForeground(Color.lightGray);
-		this.getAffichageNourriture().setForeground(Color.lightGray);	
-		this.getNom().setForeground(Color.lightGray);
+		this.getEtat().setForeground(Color.lightGray);
+		this.getEtat().setFont(new Font(this.getEtat().getFont().getName() , Font.PLAIN , 16));
+		size = this.getEtat().getPreferredSize();		
+		this.getEtat().setBounds(25 , 434 , size.width , size.height);			
 		
+		this.getAffOuv().setForeground(Color.lightGray);
+		this.getAffOuv().setFont(new Font(this.getAffOuv().getFont().getName() , Font.PLAIN , 11));
+		size = this.getAffOuv().getPreferredSize();		
+		this.getAffOuv().setBounds(25 , 480 , size.width , size.height);
+		
+		this.getAffGue().setForeground(Color.lightGray);
+		this.getAffGue().setFont(new Font(this.getAffGue().getFont().getName() , Font.PLAIN , 11));
+		size = this.getAffGue().getPreferredSize();		
+		this.getAffGue().setBounds(25 , 492 , size.width , size.height);
+		
+		this.getAffSoin().setForeground(Color.lightGray);
+		this.getAffSoin().setFont(new Font(this.getAffSoin().getFont().getName() , Font.PLAIN , 11));
+		size = this.getAffSoin().getPreferredSize();		
+		this.getAffSoin().setBounds(25 , 504 , size.width , size.height);
+		
+		this.getAffichageNourriture().setForeground(Color.lightGray);
 		this.getAffichageNourriture().setFont(new Font(this.getAffichageNourriture().getFont().getName() , Font.ITALIC , 15));
 		size = this.getAffichageNourriture().getPreferredSize();
 		this.getAffichageNourriture().setBounds(this.getPosX() , this.getPosY()+30 , size.width , size.height);
 		
+		this.getAffPopTotale().setForeground(Color.lightGray);
 		this.getAffPopTotale().setFont(new Font(this.getAffPopTotale().getFont().getName() , Font.ITALIC , 15));
 		size = this.getAffPopTotale().getPreferredSize();
 		this.getAffPopTotale().setBounds(this.getPosX() , this.getPosY()+30 , size.width , size.height);
@@ -297,7 +335,13 @@ public class Fourmiliere {
 			
 		}
 		
-		//g.setColor(new Color(102,102,0));
+		
+		g.setColor(new Color(0,0,0,0.30f));
+		g.fillPolygon(this.getUIx() , this.getUIy() , 5);
+		
+		g.setColor(Color.lightGray);
+		g.drawPolygon(this.getUIx() , this.getUIy() , 5);
+		
 		Dimension size = this.getAffichageNourriture().getPreferredSize();
 		this.getAffichageNourriture().setBounds(25 , 451 , size.width , size.height);
 		this.getAffichageNourriture().setText("Nourriture:" + this.getStockNourriture());
@@ -308,8 +352,20 @@ public class Fourmiliere {
 		//g.fillPolygon(this.getTabX() , this.getTabY() , 3);
 		
 		size = this.getEtat().getPreferredSize();
-		this.getEtat().setBounds(25 , 480 , size.width , size.height);
+		this.getEtat().setBounds(25 , 520 , size.width , size.height);
 				
+		this.getAffOuv().setText("-Ouvriere(s): " + comptOuv);
+		size = this.getAffOuv().getPreferredSize();
+		this.getAffOuv().setBounds(25 , 480 , size.width , size.height);
+		
+		this.getAffGue().setText("-Guerriere(s): " + comptGuer);
+		size = this.getAffGue().getPreferredSize();
+		this.getAffGue().setBounds(25 , 492 , size.width , size.height);
+		
+		this.getAffSoin().setText("-Soigneur(s): " + comptSoin);
+		size = this.getAffSoin().getPreferredSize();
+		this.getAffSoin().setBounds(25 , 504 , size.width , size.height);
+		
 	}
 	
 }

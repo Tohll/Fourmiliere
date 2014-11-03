@@ -56,7 +56,7 @@ public class Reine extends FourmieAbstract {
 		this.getNom().setForeground(Color.lightGray);
 		this.getPv().setForeground(Color.lightGray);
 		
-		this.getNom().setFont(new Font(this.getNom().getFont().getName() , Font.PLAIN , 15));
+		this.getNom().setFont(new Font(this.getNom().getFont().getName() , Font.BOLD , 16));
 		Dimension size = this.getNom().getPreferredSize();		
 		this.getNom().setBounds(25 , 390 , size.width , size.height);
 		
@@ -82,14 +82,15 @@ public class Reine extends FourmieAbstract {
 		
 		if (this.getCycle() == 250) {
 			
-			if (f.getStockNourriture() >= 9) {
+			if (f.getStockNourriture() >= 10) {
 				
 				f.getPopulation().put(Fourmiliere.index , new Ouvriere(f, simu));
-				f.setStockNourriture(f.getStockNourriture()-9);
+				f.setStockNourriture(f.getStockNourriture()-10);
 				
 			} else {
 				
-				this.setPointsDeVie(this.getPointsDeVie()-(9-f.getStockNourriture()));
+				this.setPointsDeVie(this.getPointsDeVie()-(10
+						-f.getStockNourriture()));
 				f.setStockNourriture(0);
 				
 			}
@@ -98,9 +99,9 @@ public class Reine extends FourmieAbstract {
 		
 		if (this.getCycle() == 900) {
 			
-			if (f.getStockNourriture() >= 9) {
+			if (f.getStockNourriture() >= 10) {
 				
-				f.setStockNourriture(f.getStockNourriture()-9);
+				f.setStockNourriture(f.getStockNourriture()-10);
 				
 				for (int i = 0 ; i < 10 ; i++) {
 					

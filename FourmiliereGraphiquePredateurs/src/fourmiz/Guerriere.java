@@ -45,6 +45,9 @@ public class Guerriere extends FourmieAbstract {
 		
 		this.attaque = false;
 		
+		Random rand = new Random();
+		this.setPointsDeVie(this.getPointsDeVie() + rand.nextInt(500));
+		
 		simu.setLayout(null);
 		/*simu.add(this.getNom());
 		simu.add(this.getPv());*/

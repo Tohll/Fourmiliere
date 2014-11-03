@@ -41,7 +41,7 @@ public class Main {
 			simulation.comportements();
 			zoneAffichage.repaint();
 			try {
-				Thread.sleep(5);
+				Thread.sleep(15);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

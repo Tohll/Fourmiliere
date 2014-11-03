@@ -2,6 +2,7 @@ package fourmiz;
 
 import java.awt.Graphics2D;
 import java.util.Enumeration;
+import java.util.Random;
 
 import mecaniques.Fourmiliere;
 import mecaniques.Simulation;
@@ -40,6 +41,9 @@ public class Soigneur extends FourmieAbstract {
 	public Soigneur (Fourmiliere f , Simulation simu) {
 		
 		super("Soin     " + nbrSoigneur , 1 , 2500 , f , simu);
+		
+		Random rand = new Random();
+		this.setPointsDeVie(this.getPointsDeVie() + rand.nextInt(500));
 		
 		this.enService = false;			
 		

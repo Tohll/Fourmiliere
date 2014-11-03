@@ -23,8 +23,12 @@ public class Ouvriere extends FourmieAbstract {
 
 	public Ouvriere(Fourmiliere f , Simulation simu) {
 		
+		
 		super("Ouvriere " + nbrOuvriere , 1 , 2400 , f , simu);
 		this.nourritureTrans = 0;		
+		
+		Random rand = new Random();
+		this.setPointsDeVie(this.getPointsDeVie() + rand.nextInt(500));
 		
 		simu.setLayout(null);
 		//simu.add(this.getNom());
