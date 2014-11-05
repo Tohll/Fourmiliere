@@ -3,6 +3,8 @@ package plateau;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import mecaniques.Coordonnees;
+
 public class Case {	
 	
 	private int posX;
@@ -13,7 +15,16 @@ public class Case {
 	private Case parent;	
 	private boolean obstacle;
 	private boolean siteNourriture;
-		
+	private Coordonnees posNode;	
+	
+	public Coordonnees getPosNode() {
+		return posNode;
+	}
+
+	public void setPosNode(Coordonnees posNode) {
+		this.posNode = posNode;
+	}
+
 	public int getG() {
 		return g;
 	}
@@ -77,9 +88,16 @@ public class Case {
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-
-	public Case (int x , int y) {
+	
+	/**
+	 * @param x
+	 * @param y
+	 * @param lgn
+	 * @param col
+	 */
+	public Case (int x , int y , int lgn , int col) {
 		
+		this.posNode = new Coordonnees(lgn , col);
 		this.siteNourriture = false;
 		this.obstacle = false;
 		this.posX = x;

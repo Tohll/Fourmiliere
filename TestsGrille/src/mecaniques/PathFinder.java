@@ -6,23 +6,49 @@ import plateau.Plateau;
 
 public class PathFinder {
 	
-	private static ArrayList<Integer> lstOuverte;
-	private static ArrayList<Integer> lstFermee;
+	private static ArrayList<Coordonnees> lstOuverte;
+	private static ArrayList<Coordonnees> lstFermee;
 	
-	public static ArrayList<Integer> trouverChemin (Plateau plateau , int nodeDepart , int nodeArrivee) {
+	public static ArrayList<Coordonnees> trouverChemin (Plateau plateau , Coordonnees nodeDepart , Coordonnees nodeArrivee) {
 		
 		lstOuverte = new ArrayList<>();
 		lstFermee = new ArrayList<>();
 		
-		ArrayList<Integer> cheminFinal = new ArrayList<>();
+		ArrayList<Coordonnees> cheminFinal = new ArrayList<>();
 		
 		lstOuverte.add(nodeDepart);
 		
-		int nodeCourant = -1;
+		Coordonnees nodeCourant = null;
 		
 		while (lstOuverte.size() > 0) {
 			
+			ArrayList<Coordonnees> voisins;
+			int max;
 			
+			nodeCourant = recupNodeActuel(plateau);
+			
+			if (nodeCourant == nodeArrivee) {
+				
+				break;
+				
+			}
+			
+			ajouterALstFermee(nodeCourant);
+			
+			voisins = recupVoisins(nodeCourant, plateau);
+			max = voisins.size();
+			
+			for (int i=0 ; i<max ; i++) {
+				
+				Coordonnees node = voisins.get(i);
+				
+				if (estDansLstFermee(node) == false && plateau.getTabCases()[node.getLigne()][node.getColonne()].isObstacle() == false) {
+					
+					
+					
+				}
+				
+			}
 			
 		}
 		
@@ -30,9 +56,9 @@ public class PathFinder {
 		
 	}
 	
-	private static void enleverDeLstFermee (int node) {
+	private static void enleverDeLstFermee (Coordonnees node) {
 		
-		ArrayList<Integer> tmpLst = new ArrayList<>();
+		ArrayList<Coordonnees> tmpLst = new ArrayList<>();
 		int max = lstFermee.size();
 		
 		for (int i=0 ; i<max ; i++) {
@@ -49,9 +75,9 @@ public class PathFinder {
 		
 	}
 	
-	private static void enleverDeLstOuverte (int node) {
+	private static void enleverDeLstOuverte (Coordonnees node) {
 		
-		ArrayList<Integer> tmpLst = new ArrayList<>();
+		ArrayList<Coordonnees> tmpLst = new ArrayList<>();
 		int max = lstOuverte.size();
 		
 		for (int i=0 ; i<max ; i++) {
@@ -68,33 +94,33 @@ public class PathFinder {
 		
 	}
 	
-	private static void ajouterALstFermee (int node) {
+	private static void ajouterALstFermee (Coordonnees node) {
 				
 		lstOuverte.remove(lstOuverte.indexOf(node));
 		lstFermee.add(node);
 		
 	}
 	
-	private static void ajouterALstOuverte (int node) {
+	private static void ajouterALstOuverte (Coordonnees node) {
 		
 		lstFermee.remove(lstFermee.indexOf(node));
 		lstOuverte.add(node);
 		
 	}
 	
-	private static int recupNodeActuel (Plateau plateau) {
+	private static Coordonnees recupNodeActuel (Plateau plateau) {
 		
 		int max = lstOuverte.size();
 		int minF = 1000000;
-		int nodeActuel = -1;
+		Coordonnees nodeActuel = null;
 		
 		for (int i=0 ; i < max ; i++) {
 			
-			int node = lstOuverte.get(i);
+			Coordonnees node = lstOuverte.get(i);
 			
-			if (plateau.getTabCases()[node].getF() < minF) {
+			if (plateau.getTabCases()[node.getLigne()][node.getColonne()].getF() < minF) {
 				
-				minF = plateau.getTabCases()[node].getF();
+				minF = plateau.getTabCases()[node.getLigne()][node.getColonne()].getF();
 				nodeActuel = node;
 				
 			}
@@ -105,25 +131,120 @@ public class PathFinder {
 		
 	}
 	
-	private static ArrayList<Integer> recupVoisins (int node , Plateau plateau) {
+	private static ArrayList<Coordonnees> recupVoisins (Coordonnees node , Plateau plateau) {
 		
-		ArrayList<Integer> voisins = new ArrayList<>();
+		ArrayList<Coordonnees> voisins = new ArrayList<>();
 		
-		int nodeNO = (node-plateau.getNBR_COL())-1;
-		int nodeN = node-plateau.getNBR_COL();
-		int nodeNE = (node-plateau.getNBR_COL())+1;
-		int nodeE = node+1;
-		int nodeSE = (node+plateau.getNBR_COL())+1;
-		int nodeS = node+plateau.getNBR_COL();
-		int nodeSO = (node+plateau.getNBR_COL())-1;
-		int nodeO = node-1;
+		int voisinN = node.getLigne()-1;
+		int voisinS = node.getLigne()+1;
+		int voisinE = node.getColonne()+1;
+		int voisinO = node.getColonne()-1;
 		
-		//TODO 
-		//http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/jeux/pathfinder_algorithme_astar_pratique
-		//http://www.cokeandcode.com/main/tutorials/path-finding/
+		//Axes
+		if (voisinN > -1) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()-1][node.getColonne()].getPosNode());
+			plateau.getTabCases()[node.getLigne()-1][node.getColonne()].setF(10);
+		}
 		
+		if (voisinS > plateau.getNBR_LIG()) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()+1][node.getColonne()].getPosNode());
+			plateau.getTabCases()[node.getLigne()+1][node.getColonne()].setF(10);
+			
+		}
+		
+		if (voisinE < plateau.getNBR_COL()) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()][node.getColonne()+1].getPosNode());
+			plateau.getTabCases()[node.getLigne()][node.getColonne()+1].setF(10);
+			
+		}
+		
+		if (voisinO > -1) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()][node.getColonne()-1].getPosNode());
+			plateau.getTabCases()[node.getLigne()][node.getColonne()-1].setF(10);
+			
+		}
+		
+		//Diagonales
+		if (voisinN > -1 && voisinE < plateau.getNBR_COL()) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()-1][node.getColonne()+1].getPosNode());
+			plateau.getTabCases()[node.getLigne()-1][node.getColonne()+1].setF(14);
+			
+		}
+		
+		if (voisinS > plateau.getNBR_LIG() && voisinE < plateau.getNBR_COL()) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()+1][node.getColonne()+1].getPosNode());
+			plateau.getTabCases()[node.getLigne()+1][node.getColonne()+1].setF(14);
+			
+		}
+
+		if (voisinN > -1 && voisinO > -1) {
+	
+			voisins.add(plateau.getTabCases()[node.getLigne()-1][node.getColonne()-1].getPosNode());
+			plateau.getTabCases()[node.getLigne()-1][node.getColonne()-1].setF(14);
+	
+		}
+		
+		if (voisinS > plateau.getNBR_LIG() && voisinO > -1) {
+			
+			voisins.add(plateau.getTabCases()[node.getLigne()+1][node.getColonne()-1].getPosNode());
+			plateau.getTabCases()[node.getLigne()+1][node.getColonne()-1].setF(14);
+			
+		}
+				
 		return voisins;
 		
+	}
+	
+	private static boolean estDansLstOuverte (Coordonnees node) {
+		
+		int max = lstOuverte.size();
+		boolean bool = false;
+		
+		for (int i=0 ; i < max ; i++) {
+			
+			if (lstOuverte.get(i) == node) {
+				
+				bool = true;
+				
+			} else {
+				
+				bool = false;
+				
+			}
+			
+		}
+		
+		return bool;
+				
+	}
+	
+	private static boolean estDansLstFermee (Coordonnees node) {
+		
+		int max = lstFermee.size();
+		boolean bool = false;
+		
+		for (int i=0 ; i < max ; i++) {
+			
+			if (lstFermee.get(i) == node) {
+				
+				bool = true;
+				
+			} else {
+				
+				bool = false;
+				
+			}
+			
+		}
+		
+		return bool;
+				
 	}
 
 }

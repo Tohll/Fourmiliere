@@ -2,8 +2,8 @@ package creeps;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 
+import mecaniques.Coordonnees;
 import plateau.Case;
 import plateau.Plateau;
 
@@ -12,33 +12,33 @@ public class Creep {
 	private int posX;
 	private int posY;
 	private int vitesse;	
-	
-	private int nodeCourant;
-	private int nodeProchain;
-	private int nodeDestination;
 		
-	public int getNodeCourant() {
-		return nodeCourant;
-	}
-
-	public void setNodeCourant(int nodeCourant) {
-		this.nodeCourant = nodeCourant;
-	}
-
-	public int getNodeProchain() {
-		return nodeProchain;
-	}
-
-	public void setNodeProchain(int nodeProchain) {
-		this.nodeProchain = nodeProchain;
-	}
-
-	public int getNodeDestination() {
+	private Coordonnees nodeDestination;
+	private Coordonnees nodeProchain;
+	private Coordonnees nodeCourant;
+	
+	public Coordonnees getNodeDestination() {
 		return nodeDestination;
 	}
 
-	public void setNodeDestination(int nodeDestination) {
+	public void setNodeDestination(Coordonnees nodeDestination) {
 		this.nodeDestination = nodeDestination;
+	}
+
+	public Coordonnees getNodeProchain() {
+		return nodeProchain;
+	}
+
+	public void setNodeProchain(Coordonnees nodeProchain) {
+		this.nodeProchain = nodeProchain;
+	}
+
+	public Coordonnees getNodeCourant() {
+		return nodeCourant;
+	}
+
+	public void setNodeCourant(Coordonnees nodeCourant) {
+		this.nodeCourant = nodeCourant;
 	}
 
 	public int getVitesse() {
@@ -67,12 +67,12 @@ public class Creep {
 
 	public Creep (Plateau plateau) {
 		
-		this.nodeDestination = 1460;
-		this.nodeProchain = -1;
-		this.nodeCourant = 660;		
+		this.nodeDestination = new Coordonnees ();
+		this.nodeProchain = new Coordonnees ();
+		this.nodeCourant = new Coordonnees (30 , 20);		
 		
-		this.posX = plateau.getTabCases()[this.nodeCourant].getPosX();
-		this.posY = plateau.getTabCases()[this.nodeCourant].getPosY();		
+		this.posX = plateau.getTabCases()[this.nodeCourant.getLigne()][this.nodeCourant.getColonne()].getPosX();
+		this.posY = plateau.getTabCases()[this.nodeCourant.getLigne()][this.nodeCourant.getColonne()].getPosY();		
 		
 		this.vitesse = 1;
 		
@@ -91,6 +91,7 @@ public class Creep {
 		
 	}
 		
+	@SuppressWarnings("unused")
 	private void deplacement (Case prochaineCase) {
 		
 		int xT = 0;
