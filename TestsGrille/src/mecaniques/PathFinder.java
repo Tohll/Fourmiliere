@@ -1,5 +1,6 @@
 package mecaniques;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 
 import plateau.Plateau;
@@ -44,7 +45,33 @@ public class PathFinder {
 				
 				if (estDansLstFermee(node) == false && plateau.getTabCases()[node.getLigne()][node.getColonne()].isObstacle() == false) {
 					
+					int newG = plateau.getTabCases()[node.getLigne()][node.getColonne()].getParent().getG()
+							 + plateau.getTabCases()[node.getLigne()][node.getColonne()].getF();
+					int newH = Math.abs(plateau.getTabCases()[node.getLigne()][node.getColonne()].getPosX() - plateau.getTabCases()[nodeArrivee.getLigne()][nodeArrivee.getColonne()].getPosX())
+							 + Math.abs(plateau.getTabCases()[node.getLigne()][node.getColonne()].getPosY() - plateau.getTabCases()[nodeArrivee.getLigne()][nodeArrivee.getColonne()].getPosY())
+							 + plateau.getTabCases()[node.getLigne()][node.getColonne()].getF();
+					int newF = newG + newH;
 					
+					if (estDansLstOuverte(node)) {
+						
+						if (newG < plateau.getTabCases()[node.getLigne()][node.getColonne()].getG()) {
+							
+							plateau.getTabCases()[node.getLigne()][node.getColonne()].setParent(plateau.getTabCases()[nodeCourant.getLigne()][nodeCourant.getColonne()]);
+							plateau.getTabCases()[node.getLigne()][node.getColonne()].setG(newG);
+							plateau.getTabCases()[node.getLigne()][node.getColonne()].setH(newH);
+							plateau.getTabCases()[node.getLigne()][node.getColonne()].setF(newF);
+							
+						}
+						
+					} else {
+						
+						ajouterALstOuverte(node);
+						plateau.getTabCases()[node.getLigne()][node.getColonne()].setParent(plateau.getTabCases()[nodeCourant.getLigne()][nodeCourant.getColonne()]);
+						plateau.getTabCases()[node.getLigne()][node.getColonne()].setG(newG);
+						plateau.getTabCases()[node.getLigne()][node.getColonne()].setH(newH);
+						plateau.getTabCases()[node.getLigne()][node.getColonne()].setF(newF);
+						
+					}
 					
 				}
 				
@@ -52,7 +79,24 @@ public class PathFinder {
 			
 		}
 		
-		return cheminFinal;
+		if (lstOuverte.size() == 0) {
+			
+			return cheminFinal;
+			
+		}
+		
+		Coordonnees dernierNode = nodeArrivee;
+		
+		while (dernierNode != nodeArrivee) {
+			
+			cheminFinal.add(dernierNode);
+			dernierNode = plateau.getTabCases()[dernierNode.getLigne()][dernierNode.getColonne()].getParent().getPosNode();
+			
+		}
+		
+		//TODO
+		//inversion du chemin final
+		return cheminFinal.
 		
 	}
 	
