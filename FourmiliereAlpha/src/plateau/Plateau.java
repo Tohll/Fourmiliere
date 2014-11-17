@@ -127,12 +127,12 @@ public class Plateau extends JPanel {
 			while (ePop.hasMoreElements()) {
 				
 				int indPop = ePop.nextElement();
-				
+								
 				if (!this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop).isVivante()) {
 					
 					this.getFourmilieresTab().get(indFourmiliere).getPopulation().remove(indPop);
 					
-				}
+				}						
 				
 			}
 			
@@ -142,7 +142,11 @@ public class Plateau extends JPanel {
 				
 				int indPop = ePop.nextElement();
 				
-				this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop).comportement(this.getFourmilieresTab().get(indFourmiliere), this);
+				if (this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop) != null) {
+					
+					this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop).comportement(this.getFourmilieresTab().get(indFourmiliere), this);
+					
+				}			
 				
 			}
 			
@@ -204,26 +208,33 @@ public class Plateau extends JPanel {
 			
 			for (int j=1 ; j<NBR_COL-1 ; j++) {
 				
-				test = rand.nextInt(25);
+				test = rand.nextInt(40);
 				if (test == 1) {
 					
 					if ( i > 2 && i < NBR_LIG-3 && j > 2 && j < NBR_COL-3) {
 						
 						this.getTabCases()[i][j].setObstacle(true);
+						this.getTabCases()[i][j].setNourriture(false);;
 						
 					}					
 					
 					if (i-1 > 2 && i+1 < NBR_LIG-3 && j-1 > 2 && j+1 < NBR_COL-3) {
 						
 						this.getTabCases()[i-1][j].setObstacle(true);
+						this.getTabCases()[i-1][j].setNourriture(false);
 						this.getTabCases()[i+1][j].setObstacle(true);
+						this.getTabCases()[i+1][j].setNourriture(false);
 						this.getTabCases()[i][j+1].setObstacle(true);
+						this.getTabCases()[i][j+1].setNourriture(false);
 						this.getTabCases()[i][j-1].setObstacle(true);
+						this.getTabCases()[i][j-1].setNourriture(false);
 						
 						this.getTabCases()[i-1][j-1].setObstacle(true);
+						this.getTabCases()[i-1][j-1].setNourriture(false);
 						this.getTabCases()[i+1][j+1].setObstacle(true);
-						this.getTabCases()[i-1][j+1].setObstacle(true);
-						this.getTabCases()[i+1][j-1].setObstacle(true);
+						this.getTabCases()[i+1][j+1].setNourriture(false);
+						this.getTabCases()[i-1][j+1].setNourriture(false);
+						this.getTabCases()[i+1][j-1].setNourriture(false);
 																		
 					}					
 					
@@ -319,7 +330,11 @@ public class Plateau extends JPanel {
 				
 				int indPop = ePop.nextElement();
 				
-				this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop).afficher(g);
+				if (this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop) != null) {
+					
+					this.getFourmilieresTab().get(indFourmiliere).getPopulation().get(indPop).afficher(g);
+					
+				}				
 				
 			}
 			

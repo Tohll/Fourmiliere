@@ -74,7 +74,7 @@ public class Scout extends FourmieAbstract {
 		this.setPointsDeVie(this.getPointsDeVie() + rand.nextInt(750));
 		
 		f.setNbrScouts(f.getNbrScouts()+1);
-		
+				
 		this.cherche = false;
 		this.trouve = false;
 		
@@ -94,11 +94,12 @@ public class Scout extends FourmieAbstract {
 				
 				if(this.getPointsDeVie() > 0) {
 					
+					this.setMarqueurChemin(0);
 					Random rand = new Random();
 					int test;
 					int test2;				
 					
-					if (f.getSitesNourriture().size() < 4) {
+					if (f.getSitesNourriture().size() < 5) {
 						
 						test = rand.nextInt(30)+3;
 						test2 = rand.nextInt(30)+3;
@@ -116,14 +117,17 @@ public class Scout extends FourmieAbstract {
 											
 						this.setNodeDestination(plateau.getTabCases()[y][x]);					
 							
-						this.setChemin(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau));					
-						
-						if (!this.getChemin().isEmpty()) {
+						if(!this.getNodeDestination().equals(this.getNodeCourant())) {
 							
-							this.setCherche(true);
-							this.setTrouve(false);
+							do { 
+								
+								this.setChemin(new ArrayList<>(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau)));
+								
+							} while (this.getChemin().isEmpty());
 							
-						}				
+							this.setCherche(true);					
+							
+						}										
 						
 					}
 					
@@ -134,62 +138,67 @@ public class Scout extends FourmieAbstract {
 				}			
 				
 			} else {
-				
-				if(this.getPointsDeVie() > 0) {
+				if (this.getChemin().size() > this.getMarqueurChemin()) {
 					
-					if (this.getPosX() == this.getNodeDestination().getPosX() && this.getPosY() == this.getNodeDestination().getPosY()) {
-						
-						this.setNodeDestination(this.getNodeCourant());
-						Collections.reverse(this.getChemin());
-						this.setMarqueurChemin(0);				
-						
-					}
+					deplacement(this.getChemin().get(this.getMarqueurChemin()));
 					
 					if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
 						
-						if (!this.isTrouve()) {
+						if(this.getPointsDeVie() > 0) {
 							
-							if (!this.analyserTerrain(this.getChemin(), this.getMarqueurChemin(), plateau , f)) {
+							if (this.getMarqueurChemin() == this.getChemin().size()-1) {
 								
-								this.setMarqueurChemin(this.getMarqueurChemin()+1);
+								if (this.getChemin().get(this.getMarqueurChemin()).equals(f.getPosNode())) {
+									
+									this.setCherche(false);
+									this.setTrouve(false);
+									this.setMarqueurChemin(0);
+									this.getChemin().clear();
+									
+								} else {
+									
+									if (!analyserTerrain(this.getChemin(), this.getMarqueurChemin(), plateau, f)) {
+										
+										this.setTrouve(true);
+										Collections.reverse(this.getChemin());
+										this.setMarqueurChemin(0);
+										
+									}
+									
+								}
+								
+							} else {							
+								
+								if (!this.isTrouve()) {
+									
+									if (!analyserTerrain(this.getChemin(), this.getMarqueurChemin(), plateau, f)) {
+										
+										this.setMarqueurChemin(this.getMarqueurChemin()+1);
+										
+									}
+									
+								} else {
+									
+									this.setMarqueurChemin(this.getMarqueurChemin()+1);
+									
+								}							
 								
 							}
 							
+							
+							
 						} else {
 							
-							this.setMarqueurChemin(this.getMarqueurChemin()+1);
+							this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
+							this.setActive(false);
 							
 						}
 						
 					}
 					
-					this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
-					
-					if ( this.getPosX() == f.getPosNode().getPosX() && this.getPosY() == f.getPosNode().getPosY()) {
-						
-						if (f.getStockNourriture() >= 3) {
-							
-							f.setStockNourriture(f.getStockNourriture()-3);
-							
-						} else {
-							
-							f.setStockNourriture(0);
-							this.setPointsDeVie(this.getPointsDeVie()-200);
-							
-						}
-						
-						this.setChemin(null);
-						this.setCherche(false);
-						this.setMarqueurChemin(0);
-						
-					}
-					
-				} else {
-					
-					this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
-					this.setActive(false);
-					
-				}
+				}			
+				
+									
 				
 			}
 			
@@ -232,7 +241,7 @@ public class Scout extends FourmieAbstract {
 	 */
 	private boolean analyserTerrain (ArrayList<CaseAbstract> chemin , int marqueur , Plateau plateau , Fourmiliere f) {
 		
-		boolean trouve = false;
+		boolean trouver = false;
 		
 		CaseAbstract nodeAnalyse = chemin.get(marqueur);
 		int x = nodeAnalyse.getPosNode().getColonne();
@@ -255,31 +264,31 @@ public class Scout extends FourmieAbstract {
 				
 				CaseNourriture nodeNourriture = (CaseNourriture) tabNodes.get(i);
 				
-				if (nodeNourriture.isDecouvert()) {
+				if (!nodeNourriture.isDecouvert()) {
 					
-					continue;
+					trouver = true;
+					
+					this.setTrouve(true);					
+					
+					f.getSitesNourriture().put(f.getIndexNourriture(), nodeNourriture);
+					f.setIndexNourriture(f.getIndexNourriture()+1);
+					
+					do {
+						this.getChemin().clear();
+						this.setChemin(Pathfinding.trouverChemin(nodeNourriture, f.getPosNode(), plateau));
+						
+					} while (this.getChemin().isEmpty());				
+					
+					nodeNourriture.setChemin(new ArrayList<CaseAbstract>(this.getChemin()));
+					Collections.reverse(nodeNourriture.getChemin());				
+					
+					this.setMarqueurChemin(0);
+												
+					nodeNourriture.setDecouvert(true);
+					
+					break;					
 					
 				}
-				
-				trouve = true;
-				
-				this.setTrouve(true);
-				
-				this.getChemin().clear();
-				
-				f.getSitesNourriture().put(f.getIndexNourriture(), nodeNourriture);
-				f.setIndexNourriture(f.getIndexNourriture()+1);
-				
-				this.setChemin(Pathfinding.trouverChemin(nodeNourriture, f.getPosNode(), plateau));
-				
-				nodeNourriture.setChemin(new ArrayList<CaseAbstract>(this.getChemin()));
-				Collections.reverse(nodeNourriture.getChemin());				
-				
-				this.setMarqueurChemin(0);
-											
-				nodeNourriture.setDecouvert(true);
-				
-				break;
 				
 			}
 			
@@ -287,7 +296,7 @@ public class Scout extends FourmieAbstract {
 		
 		
 		
-		return trouve;
+		return trouver;
 		
 	}
 

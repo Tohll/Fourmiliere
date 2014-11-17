@@ -8,7 +8,7 @@ import plateau.Plateau;
 
 public class Pathfinding {
 
-	public static ArrayList<CaseAbstract> trouverChemin (CaseAbstract depart , CaseAbstract arrivee , Plateau plateau) {
+	public static synchronized ArrayList<CaseAbstract> trouverChemin (CaseAbstract depart , CaseAbstract arrivee , Plateau plateau) {
 		
 		ArrayList<CaseAbstract> chemin = new ArrayList<>();
 		ArrayList<CaseAbstract> lstOuverte = new ArrayList<>();

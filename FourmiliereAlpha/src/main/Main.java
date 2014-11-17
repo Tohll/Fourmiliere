@@ -6,12 +6,12 @@ import javax.swing.JFrame;
 
 import plateau.Plateau;
 
-public class Main {
+public class Main {	
 	
 	public static void main(String[] args) {
 		
 		JFrame fenetre = new JFrame("Grille");
-		Plateau plateau = new Plateau();		
+		final Plateau plateau = new Plateau();		
 				
 		fenetre.setLayout(null);		
 		//fenetre.setLocationRelativeTo(null);
@@ -31,22 +31,29 @@ public class Main {
 		
 		while (true) {					
 			
-			plateau.comportements();
+			Thread tComportements = new Thread("Thead des comportements") {
+	            public void run() {
+	            	
+	            	plateau.comportements();       	
+	            	
+	            }
+	        };
+	        tComportements.start();
+	        
+	        fenetre.setSize(plateau.getPreferredSize().width+27, plateau.getPreferredSize().height+49);
 			
-			fenetre.setSize(plateau.getPreferredSize().width+27, plateau.getPreferredSize().height+49);
-			
-			plateau.repaint();
-			
+	        plateau.repaint();
+	                   					
 			try {
 				
-				Thread.sleep(5);
+				Thread.sleep(20);
 				
 			} catch (InterruptedException e) {
 				
 				System.out.println("probleme de thread");
 				System.exit(0);
 				
-			}
+			}	
 			
 		}
 

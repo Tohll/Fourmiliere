@@ -56,7 +56,22 @@ public class Fourmiliere {
 	private CaseAbstract posNode;
 	private int posX;
 	private int posY;
+	private boolean fertile;
 		
+	/**
+	 * @return the fertile
+	 */
+	public boolean isFertile() {
+		return fertile;
+	}
+
+	/**
+	 * @param fertile the fertile to set
+	 */
+	public void setFertile(boolean fertile) {
+		this.fertile = fertile;
+	}
+
 	/**
 	 * @return the affNourriture
 	 */
@@ -303,6 +318,7 @@ public class Fourmiliere {
 		this.posNode = posnode;
 		this.posX = this.posNode.getPosX();
 		this.posY = this.posNode.getPosY();	
+		this.fertile = true;
 		
 		this.population.put(this.indexPop, new Reine(true, this));
 		

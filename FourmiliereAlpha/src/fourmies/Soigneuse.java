@@ -109,13 +109,13 @@ public class Soigneuse extends FourmieAbstract {
 	 */
 	public Soigneuse(Fourmiliere f) {
 		
-		super("Soigneuse " + f.getNom() + "-" + f.getNbrSoigneuses() , 1 , 1500 , f);
+		super("Soigneuse " + f.getNom() + "-" + f.getNbrSoigneuses() , 1 , 1000 , f);
 		
 		Random rand = new Random();
 		this.setPointsDeVie(this.getPointsDeVie() + rand.nextInt(750));
 		
 		f.setNbrSoigneuses(f.getNbrSoigneuses()+1);
-		
+				
 		this.enService = false;
 		this.transporte = false;
 		this.fourmieChoisie = null;
@@ -168,18 +168,26 @@ public class Soigneuse extends FourmieAbstract {
 						
 						int tmp = ePop.nextElement();
 						
-						if (!f.getPopulation().get(tmp).isActive() && !f.getPopulation().get(tmp).isPriseEnCharge()) {
+						if(f.getPopulation().get(tmp) != null) {
 							
-							f.getPopulation().get(tmp).setPriseEnCharge(true);
-							this.setEnService(true);
-							this.setNodeDestination(f.getPopulation().get(tmp).getNodeCourant());
-							this.setFourmieChoisie(f.getPopulation().get(tmp));
+							if (!f.getPopulation().get(tmp).isActive() && !f.getPopulation().get(tmp).isPriseEnCharge()) {
+								
+								f.getPopulation().get(tmp).setPriseEnCharge(true);
+								this.setEnService(true);
+								this.setNodeDestination(f.getPopulation().get(tmp).getNodeCourant());
+								this.setFourmieChoisie(f.getPopulation().get(tmp));
+								do {
+									
+									this.setChemin(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau));
+									
+								} while (this.getChemin().isEmpty());
+								
+								
+								break;
+								
+							}
 							
-							this.setChemin(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau));
-							
-							break;
-							
-						}
+						}						
 						
 					}
 					
@@ -193,62 +201,71 @@ public class Soigneuse extends FourmieAbstract {
 				
 			} else {
 				
-				if (this.getPointsDeVie() > 0) {
+				if (this.getChemin().size() > 0) {
 					
-					
-					
-					this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
-					
-					if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
+					if (this.getPointsDeVie() > 0) {					
 						
-						if (this.getMarqueurChemin() == this.getChemin().size()-1) {
+						if (this.getChemin().size() > this.getMarqueurChemin()) {
 							
-							if (this.getPosX() == f.getPosNode().getPosX() && this.getPosY() == f.getPosNode().getPosY()) {
+							this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
+							
+							if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
 								
-								if (f.getStockNourriture() >= 5) {
+								if (this.getMarqueurChemin() == this.getChemin().size()-1) {
 									
-									f.setStockNourriture(f.getStockNourriture()-5);
+									if (this.getPosX() == f.getPosNode().getPosX() && this.getPosY() == f.getPosNode().getPosY()) {
+										
+										if (f.getStockNourriture() >= 5) {
+											
+											f.setStockNourriture(f.getStockNourriture()-5);
+											
+										} else {
+											
+											f.setStockNourriture(0);
+											this.setPointsDeVie(this.getPointsDeVie()-400);
+											
+										}
+										
+										this.getChemin().clear();
+										this.setMarqueurChemin(0);
+										this.setEnService(false);
+										this.setTransporte(false);
+										this.getFourmieChoisie().setVivante(false);
+										this.setFourmieChoisie(null);
+										
+									} else {
+										
+										this.setTransporte(true);
+										this.setMarqueurChemin(0);
+										Collections.reverse(this.getChemin());
+										
+									}
 									
 								} else {
 									
-									f.setStockNourriture(0);
-									this.setPointsDeVie(this.getPointsDeVie()-400);
+									this.setMarqueurChemin(this.getMarqueurChemin()+1);
 									
-								}
-								
-								this.setChemin(null);
-								this.setMarqueurChemin(0);
-								this.setEnService(false);
-								this.setTransporte(false);
-								this.getFourmieChoisie().setVivante(false);
-								this.setFourmieChoisie(null);
-								
-							} else {
-								
-								this.setTransporte(true);
-								this.setMarqueurChemin(0);
-								Collections.reverse(this.getChemin());
+								}					
 								
 							}
 							
-						} else {
-							
-							this.setMarqueurChemin(this.getMarqueurChemin()+1);
-							
-						}					
+						}
+						
+						
+						
+					} else {
+						
+						this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
+						this.setActive(false);					
+						this.setTransporte(false);
+						this.getFourmieChoisie().setPriseEnCharge(false);
+						this.getFourmieChoisie().setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));						
 						
 					}
 					
-				} else {
-					
-					this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
-					this.setActive(false);					
-					this.setTransporte(false);
-					this.getFourmieChoisie().setPriseEnCharge(false);
-					this.getFourmieChoisie().setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
-					this.setFourmieChoisie(null);
-					
 				}
+				
+				
 				
 			}
 			
@@ -271,8 +288,12 @@ public class Soigneuse extends FourmieAbstract {
 					g.setColor(Color.white);
 					g.fillPolygon(this.getTabX() , this.getTabY() , 12);
 					
-					this.getFourmieChoisie().setPosX(this.getPosX());
-					this.getFourmieChoisie().setPosY(this.getPosY());
+					if(this.getFourmieChoisie() != null) {
+						
+						this.getFourmieChoisie().setPosX(this.getPosX());
+						this.getFourmieChoisie().setPosY(this.getPosY());
+						
+					}					
 					
 				} else {
 					

@@ -254,7 +254,7 @@ public abstract class FourmieAbstract {
 		this.posY = this.nodeCourant.getPosY();		
 		
 		this.marqueurChemin = 0;
-		this.chemin = null;
+		this.chemin = new ArrayList<CaseAbstract>();
 		this.vitesse = vitesse;
 		
 		f.setIndexPop(f.getIndexPop()+1);

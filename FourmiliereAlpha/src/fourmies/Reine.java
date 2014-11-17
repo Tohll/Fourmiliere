@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mecaniques.Pathfinding;
-import plateau.CaseAbstract;
 import plateau.Plateau;
 import batiments.Fourmiliere;
 
@@ -55,8 +54,7 @@ public class Reine extends FourmieAbstract {
 		
 		nbrReines++;		
 		
-		this.pondeuse = pondeuse;
-		this.setChemin(new ArrayList<CaseAbstract>());
+		this.pondeuse = pondeuse;		
 		
 	}
 
@@ -78,7 +76,7 @@ public class Reine extends FourmieAbstract {
 						
 						f.setStockNourriture(f.getStockNourriture()-10);
 						
-						if (f.getSitesNourriture().size() < 4) {
+						if (f.getSitesNourriture().size() < 5) {
 							
 							for (int i=0 ; i<1 ; i++) {
 								
@@ -86,6 +84,13 @@ public class Reine extends FourmieAbstract {
 																
 							}
 							
+						}
+						
+						if (f.getStockNourriture() > 550 && f.isFertile()) {
+							
+							f.getPopulation().put(f.getIndexPop(), new Reine(false, f));
+							f.setStockNourriture(f.getStockNourriture()-500);
+							f.setFertile(false);
 						}
 						
 					} else {
@@ -103,19 +108,17 @@ public class Reine extends FourmieAbstract {
 						
 						f.setStockNourriture(f.getStockNourriture()-15);												
 						
-						for (int i=0 ; i<15 ; i++) {
+						for (int i=0 ; i<10 ; i++) {
 							
 							f.getPopulation().put(f.getIndexPop(), new Ouvriere (f));						
 							
 						}
 						
-						for (int i=0 ; i<8 ; i++) {
+						for (int i=0 ; i<3 ; i++) {
 							
 							f.getPopulation().put(f.getIndexPop(), new Soigneuse(f));						
 							
-						}	
-						
-						f.getPopulation().put(f.getIndexPop(), new Reine(false, f));
+						}						
 												
 					} else {
 						
@@ -153,6 +156,8 @@ public class Reine extends FourmieAbstract {
 					
 					do {
 						
+						this.getChemin().clear();
+						
 						do {						
 							
 							x = test + f.getPosNode().getPosNode().getColonne();
@@ -163,9 +168,9 @@ public class Reine extends FourmieAbstract {
 						
 						this.setNodeDestination(plateau.getTabCases()[y][x]);
 						
-						if (!this.getNodeDestination().isObstacle() /*&& !(this.getNodeDestination() instanceof CaseNourriture)*/) {
+						if (!this.getNodeDestination().isObstacle() || !this.getNodeDestination().isNourriture()) {
 														
-							this.setChemin(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau));
+							this.setChemin(new ArrayList<>(Pathfinding.trouverChemin(this.getNodeCourant(), this.getNodeDestination(), plateau)));
 							
 						}
 						
@@ -173,24 +178,27 @@ public class Reine extends FourmieAbstract {
 					
 				} else {
 					
-					this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
-					
-					if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
+					if (this.getChemin().size() > this.getMarqueurChemin()) {
 						
-						if (this.getMarqueurChemin() == this.getChemin().size()-1) {
+						this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
+						
+						if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
 							
-							Fourmiliere tmp = new Fourmiliere(plateau.getTabCases()[this.getNodeDestination().getPosNode().getLigne()][this.getNodeDestination().getPosNode().getColonne()], plateau);
-							plateau.getFourmilieresTab().put(Plateau.indexFourmilieres, tmp);
-							this.setVivante(false);
-							tmp.getPopulation().put(tmp.getIndexPop(), new Reine(true, f));
-							
-						} else {
-							
-							this.setMarqueurChemin(this.getMarqueurChemin()+1);
+							if (this.getMarqueurChemin() == this.getChemin().size()-1) {
+								
+								Fourmiliere newFourmiliere = new Fourmiliere(plateau.getTabCases()[this.getNodeDestination().getPosNode().getLigne()][this.getNodeDestination().getPosNode().getColonne()], plateau);
+								plateau.getFourmilieresTab().put(Plateau.indexFourmilieres, newFourmiliere);
+								this.setVivante(false);							
+								
+							} else {
+								
+								this.setMarqueurChemin(this.getMarqueurChemin()+1);
+								
+							}
 							
 						}
 						
-					}
+					}				
 					
 				}
 				

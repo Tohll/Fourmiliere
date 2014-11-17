@@ -105,7 +105,8 @@ public class CaseNourriture extends CaseAbstract {
 		this.affNourriture.setFont(new Font("Arial" , Font.BOLD , 8));
 		this.affNourriture.setForeground(Color.white);
 		this.affNourriture.setVisible(false);
-				
+			
+		this.setNourriture(true);
 		this.decouvert =false;		
 		this.setChemin(null);
 		

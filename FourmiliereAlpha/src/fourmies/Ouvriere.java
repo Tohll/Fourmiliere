@@ -90,7 +90,7 @@ public class Ouvriere extends FourmieAbstract {
 				
 				if (f.getSitesNourriture().size() > 0) {
 					
-					if (this.getChemin() == null) {
+					if (this.getChemin().isEmpty()) {
 						
 						Random rand = new Random();
 						
@@ -106,63 +106,70 @@ public class Ouvriere extends FourmieAbstract {
 						
 						this.setNodeDestination(f.getSitesNourriture().get(tabIndexs.get(rand.nextInt(tabIndexs.size()))));
 						
-						this.setChemin(new ArrayList<>(this.getNodeDestination().getChemin()));
-						//this.setMarqueurChemin(1);
-						
+						if (this.getNodeDestination().getChemin() != null) {
+							
+							this.setChemin(new ArrayList<>(this.getNodeDestination().getChemin()));
+							
+						}					
+															
 						this.setTransporteuse(true);
 												
-					}
+					}				
 					
 				}
 				
 			} else {
 				
-				this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
-				
-				if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
-										
-					if (this.getPointsDeVie() > 0) {
-						
-						if (this.getMarqueurChemin() == this.getChemin().size()-1) {
+				if (this.getChemin().size() > 0) {
+					
+					this.deplacement(this.getChemin().get(this.getMarqueurChemin()));
+					
+					if (this.getPosX() == this.getChemin().get(this.getMarqueurChemin()).getPosX() && this.getPosY() == this.getChemin().get(this.getMarqueurChemin()).getPosY()) {
+											
+						if (this.getPointsDeVie() > 0) {
 							
-							if (this.getPosX() == f.getPosNode().getPosX() && this.getPosY() == f.getPosNode().getPosY()) {								
-								//la fourmie ramene de la nourriture
-								f.setStockNourriture(f.getStockNourriture()+this.getNourritureTransportee());							
-								//la fourmie consomme de la nourriture
-								f.setStockNourriture(f.getStockNourriture()-1);
+							if (this.getMarqueurChemin() == this.getChemin().size()-1) {
 								
-								this.setNourritureTransportee(0);
-								
-								this.setTransporteuse(false);
-								this.setChemin(null);
-								this.setMarqueurChemin(0);
-								
-							} else {							
+								if (this.getPosX() == f.getPosNode().getPosX() && this.getPosY() == f.getPosNode().getPosY()) {								
+									//la fourmie ramene de la nourriture
+									f.setStockNourriture(f.getStockNourriture()+this.getNourritureTransportee());							
+									//la fourmie consomme de la nourriture
+									f.setStockNourriture(f.getStockNourriture()-1);
 									
-								CaseNourriture tmp= (CaseNourriture) this.getNodeDestination();
-								tmp.setStockNourriture(tmp.getStockNourriture()-3);															
+									this.setNourritureTransportee(0);
 									
-								this.setNourritureTransportee(3);
+									this.setTransporteuse(false);
+									this.getChemin().clear();
+									this.setMarqueurChemin(0);
+									
+								} else {							
+										
+									CaseNourriture tmp= (CaseNourriture) this.getNodeDestination();
+									tmp.setStockNourriture(tmp.getStockNourriture()-4);															
+										
+									this.setNourritureTransportee(4);
+									
+									Collections.reverse(this.getChemin());
+									this.setMarqueurChemin(0);
+									
+								}
 								
-								Collections.reverse(this.getChemin());
-								this.setMarqueurChemin(0);
+							} else {
+								
+								this.setMarqueurChemin(this.getMarqueurChemin()+1);
 								
 							}
 							
 						} else {
 							
-							this.setMarqueurChemin(this.getMarqueurChemin()+1);
+							this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
+							this.setActive(false);
 							
 						}
 						
-					} else {
-						
-						this.setNodeCourant(this.getChemin().get(this.getMarqueurChemin()));
-						this.setActive(false);
-						
 					}
 					
-				}				
+				}
 				
 			}			
 			

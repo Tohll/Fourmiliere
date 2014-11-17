@@ -28,10 +28,25 @@ public abstract class CaseAbstract {
 	private ArrayList<CaseAbstract> chemin;
 		
 	private boolean obstacle;
+	private boolean nourriture;
 	
 	private int[] tabX;
 	private int[] tabY;
 	
+	/**
+	 * @return the nourriture
+	 */
+	public boolean isNourriture() {
+		return nourriture;
+	}
+
+	/**
+	 * @param nourriture the nourriture to set
+	 */
+	public void setNourriture(boolean nourriture) {
+		this.nourriture = nourriture;
+	}
+
 	/**
 	 * @return the chemin
 	 */
@@ -212,7 +227,9 @@ public abstract class CaseAbstract {
 		this.tabX = new int[3];
 		this.tabY = new int[3];
 		
-		this.setObstacle(false);
+		this.obstacle = false;
+		this.nourriture = false;
+		
 		this.posNode = new Coordonnees(lgn , col);		
 		this.posX = x;
 		this.posY = y;
