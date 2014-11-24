@@ -86,7 +86,7 @@ public class Reine extends FourmieAbstract {
 							
 						}
 						
-						if (f.getStockNourriture() > 550 && f.isFertile()) {
+						if (f.getStockNourriture() > 300 && f.isFertile()) {
 							
 							f.getPopulation().put(f.getIndexPop(), new Reine(false, f));
 							f.setStockNourriture(f.getStockNourriture()-500);

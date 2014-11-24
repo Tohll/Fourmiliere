@@ -342,6 +342,6 @@ public class Plateau extends JPanel {
 			
 		}
 		
-	}	
+	}
 
 }

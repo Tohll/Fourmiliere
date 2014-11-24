@@ -27,36 +27,65 @@ public class Main {
 		plateau.fourmiliereInitiale();
 		
 		fenetre.pack();
-		fenetre.setVisible(true);
+		fenetre.setSize(plateau.getPreferredSize().width+27, plateau.getPreferredSize().height+49);
 		
-		while (true) {					
+		fenetre.setVisible(true);
 			
-			Thread tComportements = new Thread("Thead des comportements") {
-	            public void run() {
-	            	
-	            	plateau.comportements();       	
-	            	
-	            }
-	        };
-	        tComportements.start();
-	        
-	        fenetre.setSize(plateau.getPreferredSize().width+27, plateau.getPreferredSize().height+49);
+		Thread tComportements = new Thread("Thead des comportements") {
 			
-	        plateau.repaint();
-	                   					
-			try {
-				
-				Thread.sleep(20);
-				
-			} catch (InterruptedException e) {
-				
-				System.out.println("probleme de thread");
-				System.exit(0);
-				
-			}	
+            public void run() {
+            	
+            	while (true) {           		
+                	
+            		plateau.comportements();
+   					
+        			try {
+        				
+        				Thread.sleep(25);
+        				
+        			} catch (InterruptedException e) {
+        				
+        				System.out.println("probleme de thread");
+        				System.exit(0);
+        				
+        			}
+            		
+            	}
+            	
+            }
+            
+        };
+		
+        
+        
+		Thread tAffichage = new Thread("Thead des affichages") {
 			
-		}
-
+            public void run() {
+            	
+            	while (true) {           		
+                	
+            		plateau.repaint();  					
+        			
+            		try {
+        				
+        				Thread.sleep(25);
+        				
+        			} catch (InterruptedException e) {
+        				
+        				System.out.println("probleme de thread");
+        				System.exit(0);
+        				
+        			}
+            		
+            	}
+            	
+            }
+            
+        };
+        
+        
+        tAffichage.start();
+        tComportements.start();
 	}
 
 }
