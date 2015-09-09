@@ -5,4 +5,4 @@ TP Fourmiliere
 
 Par Charbel FOUREL
 
-En cours d'elaboration
+Mise en pratique d'un algorythme de pathfinding associé a une IA conditionnelle.
